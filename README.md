@@ -30,6 +30,16 @@ Add it to the `AppKernel.php` class:
 	new MWSimple\Bundle\CrudGeneratorBundle\MWSimpleLinodeDNSManagerBundle(),
 ```
 
+### Configuration services
+
+You can configure `config.yml` find imports:
+
+```yaml
+    imports:
+        ...
+        - { resource: "@MWSimpleLinodeDNSManagerBundle/Resources/config/services.yml" }
+```
+
 ### Configure routing
 
 You can configure `routing.yml`

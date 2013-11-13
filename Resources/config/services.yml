@@ -1,0 +1,5 @@
+services:
+    mws_dns_manager:
+        class: MWSimple\Bundle\LinodeDNSManagerBundle\Services\DNSManager
+        arguments:
+            - "@service_container"

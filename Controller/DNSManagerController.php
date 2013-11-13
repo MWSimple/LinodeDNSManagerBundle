@@ -5,44 +5,32 @@ namespace MWSimple\Bundle\LinodeDNSManagerBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Hampel\Linode\Service\LinodeConfig;
-use Hampel\Linode\Service\LinodeService;
-use Hampel\Linode\Command\Domain;
-use Guzzle\Http\Client;
 
 class DNSManagerController extends Controller
 {
-	private $ip_server;
-	private $linode;
+    private $mws_dns_manager;
 
     public function init(){
-        $this->ip_server = $this->container->getParameter('ip_server');
-        // long-hand initialisation method
-        $config = new LinodeConfig();
-        $config->set($this->container->getParameter('api_key_linode'));
-        $client = new Client();
-        $this->linode = new LinodeService($client, $config);
-        $this->linode->init();
+        $this->mws_dns_manager = $this->get('mws_dns_manager');
     }
 
     /**
-     * @Route("/", name="mws-linode-dns-manager")
-     * @Template()
-     */
+    * @Route("/", name="mws-linode-dns-manager")
+    * @Template()
+    */
     public function indexAction()
     {
         return array('index' => 'Welcome');
     }
 
     /**
-     * @Route("/list", name="mws-ldm-list")
-     * @Template()
-     */
+    * @Route("/list", name="mws-ldm-list")
+    * @Template()
+    */
     public function listAction()
     {
         $this->init();
-        $domain = new Domain($this->linode);
-        $domains = $domain->listDomain();
+        $domains = $this->mws_dns_manager->listDomains();
 
         return array('domains' => $domains);
     }
