@@ -41,6 +41,15 @@ You can configure `routing.yml`
 	    prefix:   /dnsmanager/
 ```
 
+### Configure parameters
+
+You can configure `parameters.yml`
+
+```yaml
+    api_key_linode: apikeylinode
+    ip_server:      ipserverlinode
+```
+
 ## Author
 
 Gonzalo Alonso - gonkpo@gmail.com
