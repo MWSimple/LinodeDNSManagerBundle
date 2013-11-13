@@ -24,8 +24,18 @@ class DNSManagerController extends Controller
         $this->linode = new LinodeService($client, $config);
         $this->linode->init();
     }
+
     /**
-     * @Route("/list")
+     * @Route("/", name="mws-linode-dns-manager")
+     * @Template()
+     */
+    public function indexAction()
+    {
+        return array('index' => 'Welcome');
+    }
+
+    /**
+     * @Route("/list", name="mws-ldm-list")
      * @Template()
      */
     public function listAction()
@@ -33,7 +43,7 @@ class DNSManagerController extends Controller
         $this->init();
         $domain = new Domain($this->linode);
         $domains = $domain->listDomain();
-        var_dump($domains);
+
         return array('domains' => $domains);
     }
 }

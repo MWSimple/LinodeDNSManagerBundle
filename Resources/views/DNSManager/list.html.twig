@@ -1,1 +1,26 @@
-Hello {{ domains }}!
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Linode DNS Manager</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<th>ID domain</th>
+			<th>Type</th>
+			<th>Domain</th>
+			<th>SOA Email</th>
+		</thead>
+		<tbody>
+			{% for domain in domains %}
+				<tr>
+			    	<td>{{ domain.getDomainId }}</td>
+			    	<td>{{ domain.getDomainType }}</td>
+			    	<td>{{ domain.getDomainName }}</td>
+			    	<td>{{ domain.getSoaEmail }}</td>
+			    </tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</body>
+</html>
