@@ -36,16 +36,19 @@ class DNSManager {
         return $domains;
     }
 
-    public function createDomain($domain, $type, array $options = array())
+    public function createDomain($domain_name, $type, array $options = array())
     {
         $domain = new Domain($this->linode);
-        $response = $domain->create($domain, $type, $options);
+        $response = $domain->create($domain_name, $type, $options);
 
         return $response;
     }
 
-    public function createA($domainid, $hostname, $ipaddress)
+    public function createA($domainid, $hostname, $ipaddress = null)
     {
+        if ($ipaddress == null) {
+            $ipaddress = $this->ip_server;
+        }
         $domain = new DomainResource($this->linode);
         $response = $domain->createA($domainid, $hostname, $ipaddress);
 
