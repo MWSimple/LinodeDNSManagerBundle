@@ -65,10 +65,13 @@ class DNSManager {
 
     public function deleteDomain($domain_name)
     {
+        $response = null;
         $domain = new Domain($this->linode);
         $domain_single = $this->findDomain($domain_name);
-        $domainid = $domain_single->getDomainId();
-        $response = $domain->delete($domainid);
+        if (!empty($domain_single)) {
+            $domainid = $domain_single->getDomainId();
+            $response = $domain->delete($domainid);
+        }
 
         return $response;
     }
