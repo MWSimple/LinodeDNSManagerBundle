@@ -36,6 +36,14 @@ class DNSManager {
         return $domains;
     }
 
+    public function findDomain($domain_name)
+    {
+        $domain = new Domain($this->linode);
+        $domain_single = $domain->findDomain($domain_name);
+
+        return $domain_single;
+    }
+
     public function createDomain($domain_name, $type, array $options = array())
     {
         $domain = new Domain($this->linode);
