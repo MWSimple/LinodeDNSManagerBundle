@@ -52,6 +52,14 @@ class DNSManager {
         return $response;
     }
 
+    public function updateDomain($domainid, array $options = array())
+    {
+        $domain = new Domain($this->linode);
+        $response = $domain->update($domainid, $options);
+
+        return $response;
+    }
+
     public function createA($domainid, $hostname, $ipaddress = null)
     {
         if ($ipaddress == null) {
@@ -63,7 +71,24 @@ class DNSManager {
         return $response;
     }
 
-    public function deleteDomain($domain_name)
+    public function updateDomainResource($domainid, $resourceid, array $options = array())
+    {
+        $domain = new DomainResource($this->linode);
+        $response = $domain->update($domainid, $resourceid, $options);
+
+        return $response;
+    }
+
+    public function deleteDomain($iddomain)
+    {
+        $response = null;
+        $domain = new Domain($this->linode);
+        $response = $domain->delete($iddomain);
+
+        return $response;
+    }
+
+    public function deleteDomainByName($domain_name)
     {
         $response = null;
         $domain = new Domain($this->linode);
