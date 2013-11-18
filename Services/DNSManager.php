@@ -27,7 +27,7 @@ class DNSManager {
         $this->linode = new LinodeService($client, $config);
         $this->linode->init();
     }
-
+    //Domain
     public function listDomains()
     {
         $domain = new Domain($this->linode);
@@ -60,6 +60,28 @@ class DNSManager {
         return $response;
     }
 
+    public function deleteDomain($iddomain)
+    {
+        $response = null;
+        $domain = new Domain($this->linode);
+        $response = $domain->delete($iddomain);
+
+        return $response;
+    }
+
+    public function deleteDomainByName($domain_name)
+    {
+        $response = null;
+        $domain = new Domain($this->linode);
+        $domain_single = $this->findDomain($domain_name);
+        if (!empty($domain_single)) {
+            $domainid = $domain_single->getDomainId();
+            $response = $domain->delete($domainid);
+        }
+
+        return $response;
+    }
+    //DomainResource
     public function createA($domainid, $hostname, $ipaddress = null)
     {
         if ($ipaddress == null) {
@@ -79,24 +101,10 @@ class DNSManager {
         return $response;
     }
 
-    public function deleteDomain($iddomain)
+    public function deleteDomainResource($domainid, $resourceid)
     {
-        $response = null;
-        $domain = new Domain($this->linode);
-        $response = $domain->delete($iddomain);
-
-        return $response;
-    }
-
-    public function deleteDomainByName($domain_name)
-    {
-        $response = null;
-        $domain = new Domain($this->linode);
-        $domain_single = $this->findDomain($domain_name);
-        if (!empty($domain_single)) {
-            $domainid = $domain_single->getDomainId();
-            $response = $domain->delete($domainid);
-        }
+        $domain = new DomainResource($this->linode);
+        $response = $domain->delete($domainid, $resourceid);
 
         return $response;
     }
